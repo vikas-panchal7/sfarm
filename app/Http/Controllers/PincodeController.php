@@ -15,7 +15,7 @@ class PincodeController extends Controller
     public function index()
     {
         $pincodes = Pincodes::all();
-        return view('pincode.index', ['pincodes' => $pincodes]);
+        return view('admin/pincode', ['pincodes' => $pincodes]);
     }
 
     /**

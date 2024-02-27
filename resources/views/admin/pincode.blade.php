@@ -47,7 +47,6 @@
                             <div class="form-actions no-margin-bottom" style="text-align:center;">
                                 <input type="submit" value="Submit" class="btn btn-primary" name="btn_submit">
                             </div>
-
                         </form>
                     </div>
 
@@ -65,6 +64,7 @@
                                         <th>Is Active</th>
                                         <th>Action</th>
                                         <th>Edit</th>
+                                        <th>Delete</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -77,11 +77,10 @@
                                                 <button class="btn btn-primary btn-sm" data-toggle="modal"
                                                     data-target="#editModal{{ $pincode->id }}">Edit</button>
                                             </td>
-
                                             <td>
-                                                <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ $pincode->id }}">Delete</button>
+                                                <button class="btn btn-danger btn-sm" data-toggle="modal"
+                                                    data-target="#deleteModal{{ $pincode->id }}">Delete</button>
                                             </td>
-                                            
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -89,6 +88,77 @@
                         </div>
                     </div>
 
+                    <!-- Edit Modals -->
+                    @foreach ($pincodes as $pincode)
+                        <div class="modal fade" id="editModal{{ $pincode->id }}" tabindex="-1" role="dialog"
+                            aria-labelledby="editModalLabel{{ $pincode->id }}" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editModalLabel{{ $pincode->id }}">Edit Pincode</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- Edit Pincode Form -->
+                                        <form method="post" action="/pincodes/{{ $pincode->id }}">
+                                            @csrf
+                                            @method('PUT')
+
+                                            <div class="form-group">
+                                                <label for="edit_pincode">Pincode</label>
+                                                <input type="text" class="form-control" id="edit_pincode"
+                                                    name="edit_pincode" value="{{ $pincode->pincode }}">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="edit_is_active">Is Active</label>
+                                                <select class="form-control" id="edit_is_active" name="edit_is_active">
+                                                    <option value="1" {{ $pincode->is_active ? 'selected' : '' }}>Active</option>
+                                                    <option value="0" {{ !$pincode->is_active ? 'selected' : '' }}>Inactive</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+
+                    <!-- Delete Modals -->
+                    @foreach ($pincodes as $pincode)
+                        <div class="modal fade" id="deleteModal{{ $pincode->id }}" tabindex="-1" role="dialog"
+                            aria-labelledby="deleteModalLabel{{ $pincode->id }}" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteModalLabel{{ $pincode->id }}">Delete Pincode</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Are you sure you want to delete this pincode?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <form method="post" action="/pincodes/{{ $pincode->id }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>

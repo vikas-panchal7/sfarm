@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PincodeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SubproductController;
@@ -36,3 +37,9 @@ Route::get('/subproducts', [SubproductController::class, 'index']);
 Route::post('/subproducts', [SubproductController::class, 'store']);
 Route::post('/subproducts/update/{id}', [SubproductController::class, 'update']);
 Route::post('/subproducts/delete/{id}', [SubproductController::class, 'destroy']);
+
+
+Route::get('/pincode', [PincodeController::class, 'index']);
+Route::post('/pincode', [PincodeController::class, 'store']);
+Route::post('/pincode/update/{id}', [PincodeController::class, 'update']);
+Route::post('/pincode/delete/{id}', [PincodeController::class, 'destroy']);
