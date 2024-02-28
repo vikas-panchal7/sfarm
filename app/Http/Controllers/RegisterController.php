@@ -27,7 +27,7 @@ class RegisterController extends Controller
         $user->contact = $request->input('txt_con');
         $user->gender = $request->input('txt_gen');
         $user->email = $request->input('txt_em');
-        $user->password = bcrypt($request->input('txt_pass')); // Hash the password
+        $user->password = $request->input('txt_pass'); // Hash the password
         $user->save();
         $request->session()->flash('success', 'Registered SuccessFully!');
         return redirect('register');
@@ -57,6 +57,27 @@ class RegisterController extends Controller
     {
         $customers = Register::where('user_type', '4')->get();
         return view('admin/assistant', compact('customers'));
+    }
+
+    public function login(Request $request)
+    {
+        // Validation logic
+        $request->validate([
+            'txt_em' => 'required',
+            'txt_pass' => 'required',
+        ]);
+
+        $user = Register::where('email', $request->input('txt_em'))->first();
+
+        if ($user && ($request->input('txt_pass') == $user->password)) {
+            // Password is correct
+            // Log in the user
+            return redirect("/dashboard"); // Redirect to the intended page or dashboard
+        } else {
+            // Invalid email or password
+            $request->session()->flash('error', 'Invalid email or password');
+            return redirect('login'); // Redirect back to the login page with an error message
+        }
     }
 
     

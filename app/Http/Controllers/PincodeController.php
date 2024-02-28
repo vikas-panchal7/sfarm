@@ -46,7 +46,7 @@ class PincodeController extends Controller
         $pincode->is_active = $request->has('is_active') ? true : false;
         $pincode->save();
 
-        return redirect()->route('pincodes.index')->with('success', 'Pincode added successfully');
+        return redirect("/pincode")->with('success', 'Pincode added successfully');
     }
 
     /**
@@ -64,18 +64,18 @@ class PincodeController extends Controller
      * @param  \App\Models\Pincode  $pincode
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pincodes $pincode)
+    public function update(Request $request,$id)
     {
         $request->validate([
-            'pincode' => 'required|string|unique:pincodes,pincode,' . $pincode->id,
+            'pincode' => 'required|string|unique:pincodes,pincode,',
             'is_active' => 'boolean',
         ]);
-
+        $pincode = Pincodes::findOrFail($id);
         $pincode->pincode = $request->pincode;
         $pincode->is_active = $request->has('is_active') ? true : false;
         $pincode->save();
 
-        return redirect()->route('pincodes.index')->with('success', 'Pincode updated successfully');
+        return redirect("/pincode")->with('success', 'Pincode updated successfully');
     }
 
     /**
@@ -84,10 +84,11 @@ class PincodeController extends Controller
      * @param  \App\Models\Pincode  $pincode
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pincodes $pincode)
+    public function destroy($id)
     {
+        $pincode = Pincodes::findOrFail($id);
         $pincode->delete();
 
-        return redirect()->route('pincodes.index')->with('success', 'Pincode deleted successfully');
+        return redirect("/pincode")->with('success', 'Pincode deleted successfully');
     }
 }

@@ -23,7 +23,7 @@
                 <div class="panel-body">
                     <!-- Create Pincode Form -->
                     <div class="card p-3">
-                        <form id="block-validate" method="post" action="/pincodes" novalidate="novalidate">
+                        <form id="block-validate" method="post" action="/pincode" novalidate="novalidate">
                             @csrf
 
                             <div class="form-group" style="display: flex;">
@@ -62,7 +62,6 @@
                                         <th>Sr NO</th>
                                         <th>Pincode</th>
                                         <th>Is Active</th>
-                                        <th>Action</th>
                                         <th>Edit</th>
                                         <th>Delete</th>
                                     </tr>
@@ -102,19 +101,19 @@
                                     </div>
                                     <div class="modal-body">
                                         <!-- Edit Pincode Form -->
-                                        <form method="post" action="/pincodes/{{ $pincode->id }}">
+                                        <form method="post" action="/pincode/update/{{ $pincode->id }}">
                                             @csrf
-                                            @method('PUT')
+                                            
 
                                             <div class="form-group">
                                                 <label for="edit_pincode">Pincode</label>
                                                 <input type="text" class="form-control" id="edit_pincode"
-                                                    name="edit_pincode" value="{{ $pincode->pincode }}">
+                                                    name="pincode" value="{{ $pincode->pincode }}">
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="edit_is_active">Is Active</label>
-                                                <select class="form-control" id="edit_is_active" name="edit_is_active">
+                                                <select class="form-control" id="edit_is_active" name="is_active">
                                                     <option value="1" {{ $pincode->is_active ? 'selected' : '' }}>Active</option>
                                                     <option value="0" {{ !$pincode->is_active ? 'selected' : '' }}>Inactive</option>
                                                 </select>
@@ -149,9 +148,9 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <form method="post" action="/pincodes/{{ $pincode->id }}">
+                                        <form method="post" action="/pincode/delete/{{ $pincode->id }}">
                                             @csrf
-                                            @method('DELETE')
+                                           
                                             <button type="submit" class="btn btn-danger">Delete</button>
                                         </form>
                                     </div>

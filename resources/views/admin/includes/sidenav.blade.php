@@ -1,7 +1,7 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="#" class="brand-link">
         <img src="assets/dist/img/slogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
             style="opacity: .8">
         <span class="brand-text font-weight-light">Smart Farming</span>
@@ -55,20 +55,20 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview" style="display: block;">
-                        <li class="nav-item">
-                            <a href="products" class="nav-link">
+                        <li class="nav-item ">
+                            <a href="products" class="nav-link {{ Request::is('products') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Product</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="subproducts" class="nav-link">
+                            <a href="subproducts" class="nav-link {{ Request::is('subproducts') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Sub Product</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/tables/jsgrid.html" class="nav-link">
+                            <a href="pincode" class="nav-link {{ Request::is('pincode') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Pincode</p>
                             </a>
@@ -76,7 +76,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="register" class="nav-link">
+                    <a href="register" class="nav-link {{ Request::is('register') ? 'active' : '' }} ">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
                             Registration
@@ -93,25 +93,25 @@
                     </a>
                     <ul class="nav nav-treeview" style="display: block;">
                         <li class="nav-item">
-                            <a href="customers" class="nav-link">
+                            <a href="customers" class="nav-link {{ Request::is('customers') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Customer List</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="farmers" class="nav-link">
+                            <a href="farmers" class="nav-link {{ Request::is('farmers') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Farmer List</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="agents" class="nav-link">
+                            <a href="agents" class="nav-link {{ Request::is('agents') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Agent List</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="assistants" class="nav-link">
+                            <a href="assistants" class="nav-link {{ Request::is('assistants') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Assistant List</p>
                             </a>

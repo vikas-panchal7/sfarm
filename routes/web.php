@@ -18,8 +18,27 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    return view('user/home');
+});
+
+Route::get('/login', function () {
+    return view('user/login');
+});
+
+Route::get('/home', function () {
+    return view('user/home');
+});
+Route::get('/about', function () {
+    return view('user/about');
+});
+Route::get('/contact', function () {
+    return view('user/contact');
+});
+Route::get('/dashboard', function () {
     return view('admin/index');
 });
+
+Route::post('/login', [RegisterController::class, 'login']);
 Route::post('/registration', [RegisterController::class, 'register']);
 Route::get('/register', function () {
     return view('admin/register');
