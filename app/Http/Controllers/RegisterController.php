@@ -7,6 +7,17 @@ use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
+    protected $fillable = [
+        'user_type',
+        'txt_fnm',
+        'txt_mnm',
+        'txt_lnm',
+        'txt_add',
+        'txt_con',
+        'txt_gen',
+        'txt_em',
+        'password', // Add this line for the 'password' field
+    ];
     public function register(Request $request)
     {
         // Validation logic
@@ -72,6 +83,10 @@ class RegisterController extends Controller
         if ($user && ($request->input('txt_pass') == $user->password)) {
             // Password is correct
             // Log in the user
+            $request->session()->put('user_id', $user->id);
+            if($user->user_type == 3){
+                return redirect("/agent/dashboard"); 
+            }
             return redirect("/dashboard"); // Redirect to the intended page or dashboard
         } else {
             // Invalid email or password
@@ -80,5 +95,22 @@ class RegisterController extends Controller
         }
     }
 
-    
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'id' => 'required',
+            'old_password' => 'required',
+            'new_password' => 'required',
+        ]);
+
+        $user = $user = Register::where('id', $request->input('id'))->first();
+
+        if ($request->old_password != $user->password) { 
+            return redirect()->back()->with('er', 'The old password is incorrect.');
+        }
+
+        $user->password = $request->new_password;
+        $user->save();
+        return redirect()->back()->with('success', 'Password changed successfully.');
+    }
 }

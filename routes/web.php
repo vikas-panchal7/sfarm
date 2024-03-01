@@ -38,6 +38,17 @@ Route::get('/dashboard', function () {
     return view('admin/index');
 });
 
+Route::get('/changePassword', function () {
+    return view('admin/changepassword');
+});
+
+Route::get('/agent/dashboard', function () {
+    return view('agent/index');
+});
+Route::get('/agent/changePassword', function () {
+    return view('agent/changepassword');
+});
+
 Route::post('/login', [RegisterController::class, 'login']);
 Route::post('/registration', [RegisterController::class, 'register']);
 Route::get('/register', function () {
@@ -62,3 +73,5 @@ Route::get('/pincode', [PincodeController::class, 'index']);
 Route::post('/pincode', [PincodeController::class, 'store']);
 Route::post('/pincode/update/{id}', [PincodeController::class, 'update']);
 Route::post('/pincode/delete/{id}', [PincodeController::class, 'destroy']);
+
+Route::post('/change', [RegisterController::class, 'changePassword']);

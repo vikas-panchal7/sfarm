@@ -2,7 +2,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
-        <img src="assets/dist/img/slogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+        <img src="../assets/dist/img/slogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
             style="opacity: .8">
         <span class="brand-text font-weight-light">Smart Farming</span>
     </a>
@@ -12,10 +12,10 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="assets/dist/img/adminlte.png" class="img-circle elevation-2" alt="User Image">
+                <img src="../assets/dist/img/adminlte.png" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Admin</a>
+                <a href="#" class="d-block">Agent</a>
             </div>
         </div>
 
@@ -46,7 +46,7 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item menu-is-opening menu-open">
+                <li class="nav-item menu-is-opening ">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-table"></i>
                         <p>
@@ -62,20 +62,29 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="subproducts" class="nav-link {{ Request::is('subproducts') ? 'active' : '' }}">
+                            <a href="subproducts" class="nav-link {{ Request::is('commission') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Sub Product</p>
+                                <p>Commission</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="pincode" class="nav-link {{ Request::is('pincode') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Pincode</p>
-                            </a>
-                        </li>
+                        
                     </ul>
                 </li>
                 <li class="nav-item">
+                    <a href="/agent/changePassword" class="nav-link {{ Request::is('agent/changePassword') ? 'active' : '' }}">
+                        <i class="fas fa-key nav-icon"></i>
+                        <p>Change Password</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/" class="nav-link">
+                        <i class="nav-icon fas fa-sign-out-alt"></i>
+                        <p>
+                            Logout
+                        </p>
+                    </a>
+                </li>
+                {{-- <li class="nav-item">
                     <a href="register" class="nav-link {{ Request::is('register') ? 'active' : '' }} ">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
@@ -91,7 +100,7 @@
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview" style="display: none;">
+                    <ul class="nav nav-treeview" style="display: block;">
                         <li class="nav-item">
                             <a href="customers" class="nav-link {{ Request::is('customers') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
@@ -116,23 +125,8 @@
                                 <p>Assistant List</p>
                             </a>
                         </li>
-
                     </ul>
-                    <li class="nav-item">
-                        <a href="/changePassword" class="nav-link {{ Request::is('change') ? 'active' : '' }}">
-                            <i class="fas fa-key nav-icon"></i>
-                            <p>Change Password</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/" class="nav-link">
-                            <i class="nav-icon fas fa-sign-out-alt"></i>
-                            <p>
-                                Logout
-                            </p>
-                        </a>
-                    </li>
-                </li>
+                </li> --}}
 
             </ul>
         </nav>
