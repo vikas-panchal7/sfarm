@@ -49,6 +49,8 @@ Route::get('/agent/changePassword', function () {
     return view('agent/changepassword');
 });
 
+Route::get('/agent/product', [ProductController::class, 'getSubProducts']);
+
 Route::post('/login', [RegisterController::class, 'login']);
 Route::post('/registration', [RegisterController::class, 'register']);
 Route::get('/register', function () {

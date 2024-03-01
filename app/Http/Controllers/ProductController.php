@@ -62,4 +62,10 @@ class ProductController extends Controller
 
         return view('admin/product', ['products' => $products]);
     }
+    public function getSubProducts()
+    {
+        $products = Products::with('subProducts')->get();
+       //return $products;
+        return view('agent/product', ['products' => $products]);
+    }
 }
