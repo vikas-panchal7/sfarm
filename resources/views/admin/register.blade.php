@@ -32,8 +32,8 @@
                                 <select name="txt_ut" class="form-control" style="text-transform:capitalize;">
 
                                     <option value="">----Select User Type----</option>
-                                    <option value="1">farmer</option>
-                                    <option value="2">customer</option>
+                                    {{-- <option value="1">farmer</option>
+                                    <option value="2">customer</option> --}}
                                     <option value="3">agent</option>
                                     <option value="4">assistance</option>
                                 </select>
@@ -43,34 +43,34 @@
                         <div class="form-group">
                             <label class="control-label col-lg-8">First Name</label>
                             <div class="col-lg-8">
-                                <input type="text" id="required2" name="txt_fnm" class="form-control">
+                                <input type="text" id="required2" name="txt_fnm" class="form-control" required>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="control-label col-lg-8">Middle Name</label>
                             <div class="col-lg-8">
-                                <input type="text" id="required2" name="txt_mnm" class="form-control">
+                                <input type="text" id="required2" name="txt_mnm" class="form-control" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-8">LastName</label>
                             <div class="col-lg-8">
-                                <input type="text" id="required2" name="txt_lnm" class="form-control">
+                                <input type="text" id="required2" name="txt_lnm" class="form-control" required>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="control-label col-lg-8">Address</label>
                             <div class="col-lg-8">
-                                <input type="text" id="required2" name="txt_add" class="form-control">
+                                <input type="text" id="required2" name="txt_add" class="form-control" required>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="control-label col-lg-8">Contact</label>
                             <div class="col-lg-8">
-                                <input type="text" id="required2" name="txt_con" class="form-control">
+                                <input type="text" id="required2" name="txt_con" class="form-control" required>
                             </div>
                         </div>
 
@@ -85,13 +85,13 @@
                         <div class="form-group">
                             <label class="control-label col-lg-8">Email</label>
                             <div class="col-lg-8">
-                                <input type="text" id="required2" name="txt_em" class="form-control">
+                                <input type="text" id="required2" name="txt_em" class="form-control" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-8">Password</label>
                             <div class="col-lg-8">
-                                <input type="password" id="required2" name="txt_pass" class="form-control">
+                                <input type="password" id="required2" name="txt_pass" class="form-control" required>
                             </div>
                         </div>
 

@@ -39,14 +39,21 @@
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="index.php" class="nav-link">
+                    <a href="/dashboard" class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
                         </p>
                     </a>
                 </li>
-                <li class="nav-item menu-is-opening menu-open">
+                <li class="nav-item">
+                    <a href="/profile/{{ session('user_id') }}" class="nav-link {{ Request::is('profile') ? 'active' : '' }}">
+                        <i class="fas fa-envelope nav-icon"></i>
+                        <p>Profile</p>
+                    </a>
+                </li>
+
+                <li class="nav-item menu-is-opening ">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-table"></i>
                         <p>
@@ -83,7 +90,7 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item menu-is-opening menu-open">
+                <li class="nav-item menu-is-opening ">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-table"></i>
                         <p>
@@ -118,6 +125,36 @@
                         </li>
 
                     </ul>
+                    <li class="nav-item menu-is-opening ">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-table"></i>
+                            <p>
+                                Product Price
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview" style="display: none;">
+                            <li class="nav-item ">
+                                <a href="cpprice" class="nav-link {{ Request::is('cpprice') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Customer Product Price</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="apprice" class="nav-link {{ Request::is('apprice') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Agent Product Price</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/contact" class="nav-link {{ Request::is('contact') ? 'active' : '' }}">
+                            <i class="fas fa-envelope nav-icon"></i>
+                            <p>Contact Messages</p>
+                        </a>
+                    </li>
+                    
                     <li class="nav-item">
                         <a href="/changePassword" class="nav-link {{ Request::is('change') ? 'active' : '' }}">
                             <i class="fas fa-key nav-icon"></i>

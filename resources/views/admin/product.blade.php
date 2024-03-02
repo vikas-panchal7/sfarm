@@ -29,7 +29,7 @@
                                 <label class="control-label col-lg-4">ProductName</label>
                                 <div class="col-lg-4">
                                     <input type="text" class="form-control" id="product_name" name="product_name"
-                                        placeholder="Enter product name">
+                                        placeholder="Enter product name" required>
                                 </div>
                             </div>
 
@@ -98,7 +98,7 @@
                         @csrf
                         
                         <!-- Your input fields for editing the product go here -->
-                        <input type="text" class="form-control" name="product_name" value="{{ $product->product_name }}">
+                        <input type="text" class="form-control" name="product_name" value="{{ $product->product_name }}" required>
                         <!-- Add other fields as needed -->
 
                         <button type="submit" class="mt-2 btn btn-primary">Save Changes</button>

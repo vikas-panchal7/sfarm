@@ -18,6 +18,7 @@ class RegisterController extends Controller
         'txt_em',
         'password', // Add this line for the 'password' field
     ];
+
     public function register(Request $request)
     {
         // Validation logic
@@ -43,6 +44,7 @@ class RegisterController extends Controller
         $request->session()->flash('success', 'Registered SuccessFully!');
         return redirect('register');
     }
+
     public function getFarmers()
     {
         $customers = Register::where('user_type', '1')->get();
@@ -84,8 +86,8 @@ class RegisterController extends Controller
             // Password is correct
             // Log in the user
             $request->session()->put('user_id', $user->id);
-            if($user->user_type == 3){
-                return redirect("/agent/dashboard"); 
+            if ($user->user_type == 3) {
+                return redirect("/agent/dashboard");
             }
             return redirect("/dashboard"); // Redirect to the intended page or dashboard
         } else {
@@ -105,12 +107,64 @@ class RegisterController extends Controller
 
         $user = $user = Register::where('id', $request->input('id'))->first();
 
-        if ($request->old_password != $user->password) { 
+        if ($request->old_password != $user->password) {
             return redirect()->back()->with('er', 'The old password is incorrect.');
         }
 
         $user->password = $request->new_password;
         $user->save();
         return redirect()->back()->with('success', 'Password changed successfully.');
+    }
+
+    public function update(Request $request)
+    {
+        // Validation logic
+        $request->validate([
+            'txt_fnm' => 'required',
+            'txt_lnm' => 'required',
+            // Add more validation rules for other fields
+        ]);
+        $id = $request->input('user_id');
+
+        // Retrieve the user with the given ID
+        $user = Register::find($id);
+
+        // Check if the user exists
+        if (!$user) {
+            // Redirect back or show an error message if the user is not found
+            return redirect()->back()->with('er', 'User not found.');
+        }
+
+        // Update user data
+
+        $user->first_name = $request->input('txt_fnm');
+        $user->middle_name = $request->input('txt_mnm');
+        $user->last_name = $request->input('txt_lnm');
+        $user->address = $request->input('txt_add');
+        $user->contact = $request->input('txt_con');
+        $user->gender = $request->input('txt_gen');
+        $user->email = $request->input('txt_em');
+
+        // Save the updated user
+        $user->save();
+
+        // Redirect to the user list or any other desired page
+        return redirect()->back()->with('success', 'User updated successfully!');
+    }
+
+    public function edit($id)
+    {
+        // Retrieve the user with the given ID
+        $user = Register::select('id','first_name', 'middle_name', 'last_name', 'address', 'contact', 'gender', 'email')
+        ->find($id);
+
+        // Check if the user exists
+        if (!$user) {
+            // Redirect back or show an error message if the user is not found
+            return redirect()->back()->with('er', 'User not found.');
+        }
+        //return compact('user');
+        // Pass the user data to the edit view
+        return view('admin/profile', compact('user'));
     }
 }

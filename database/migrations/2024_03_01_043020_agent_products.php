@@ -26,7 +26,7 @@ class AgentProducts extends Migration
             // Define foreign key constraints if needed
             $table->foreign('pid')->references('id')->on('products');
             $table->foreign('spid')->references('id')->on('sub_products');
-            $table->foreign('agid')->references('id')->on('agents');
+            $table->foreign('agid')->references('id')->on('registers');
         });
     }
 

@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Agent_product_prices_controller;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\Customer_product_prices_controller;
 use App\Http\Controllers\PincodeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
@@ -77,3 +80,18 @@ Route::post('/pincode/update/{id}', [PincodeController::class, 'update']);
 Route::post('/pincode/delete/{id}', [PincodeController::class, 'destroy']);
 
 Route::post('/change', [RegisterController::class, 'changePassword']);
+
+// Route::get('/apprice',  function () {
+//     return view('admin/agent_price');
+// });
+Route::get('/apprice', [Agent_product_prices_controller::class, 'getAllProductsWithPrices']);
+Route::post('/appriceupdate', [Agent_product_prices_controller::class, 'updateOrInsertPrice']);
+
+
+Route::get('/cpprice', [Customer_product_prices_controller::class, 'getAllProductsWithPrices']);
+Route::post('/cppriceupdate', [Customer_product_prices_controller::class, 'updateOrInsertPrice']);
+
+Route::get('/contact',[ContactController::class,'index']);
+
+Route::get('/profile/{id}',[RegisterController::class, 'edit']);
+Route::post('/profile/update',[RegisterController::class, 'update']);

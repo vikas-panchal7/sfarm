@@ -30,7 +30,7 @@
                                 <label class="control-label col-lg-4">Pincode</label>
                                 <div class="col-lg-4">
                                     <input type="text" class="form-control" id="pincode" name="pincode"
-                                        placeholder="Enter pincode">
+                                        placeholder="Enter pincode" required>
                                 </div>
                             </div>
 
@@ -108,7 +108,7 @@
                                             <div class="form-group">
                                                 <label for="edit_pincode">Pincode</label>
                                                 <input type="text" class="form-control" id="edit_pincode"
-                                                    name="pincode" value="{{ $pincode->pincode }}">
+                                                    name="pincode" value="{{ $pincode->pincode }}" required>
                                             </div>
 
                                             <div class="form-group">

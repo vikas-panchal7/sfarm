@@ -40,7 +40,7 @@
                                 <label class="control-label col-lg-4">SubproductName</label>
                                 <div class="col-lg-4">
                                     <input type="text" class="form-control" id="subproduct_name"
-                                        name="subproduct_name" placeholder="Enter subproduct name">
+                                        name="subproduct_name" placeholder="Enter subproduct name" required>
                                 </div>
                             </div>
 
@@ -48,7 +48,7 @@
                                 <label class="control-label col-lg-4">Subproduct Description</label>
                                 <div class="col-lg-4">
                                     <textarea class="form-control" id="subproduct_description" name="subproduct_description"
-                                        placeholder="Enter subproduct description"></textarea>
+                                        placeholder="Enter subproduct description" required></textarea>
                                 </div>
                             </div>
 
@@ -56,14 +56,14 @@
                                 <label class="control-label col-lg-4">Product Crop Details</label>
                                 <div class="col-lg-4">
                                     <input type="text" class="form-control" id="product_crop_details"
-                                        name="product_crop_details" placeholder="Enter product crop details">
+                                        name="product_crop_details" placeholder="Enter product crop details" required>
                                 </div>
                             </div>
 
                             <div class="form-group" style="display: flex;">
                                 <label class="control-label col-lg-4">Image</label>
                                 <div class="col-lg-4">
-                                    <input type="file" class="form-control" id="image" name="image">
+                                    <input type="file" class="form-control" id="image" name="image" required>
                                 </div>
                             </div>
 
@@ -146,7 +146,7 @@
                         <div class="form-group">
                             <label for="subproduct_name">Subproduct Name</label>
                             <input type="text" class="form-control" id="subproduct_name" name="subproduct_name"
-                                value="{{ $subproduct->subproduct_name }}">
+                                value="{{ $subproduct->subproduct_name }}" required>
                         </div>
 
                         <div class="form-group">
@@ -157,7 +157,7 @@
                         <div class="form-group">
                             <label for="product_crop_details">Product Crop Details</label>
                             <input type="text" class="form-control" id="product_crop_details"
-                                name="product_crop_details" value="{{ $subproduct->product_crop_details }}">
+                                name="product_crop_details" value="{{ $subproduct->product_crop_details }}" required>
                         </div>
 
                         <div class="form-group">

@@ -35,14 +35,14 @@
                         <div class="form-group">
                             <label class="control-label col-lg-8">Old Password</label>
                             <div class="col-lg-8">
-                                <input type="password" name="old_password" class="form-control">
+                                <input type="password" name="old_password" class="form-control" required>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="control-label col-lg-8">New Password</label>
                             <div class="col-lg-8">
-                                <input type="password" name="new_password" class="form-control">
+                                <input type="password" name="new_password" class="form-control" required>
                             </div>
                         </div>
 
