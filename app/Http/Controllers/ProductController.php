@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\agent_products;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Products;
@@ -65,7 +66,9 @@ class ProductController extends Controller
     public function getSubProducts()
     {
         $products = Products::with('subProducts')->get();
+        $agent_product = agent_products::with('product', 'subproduct')
+        ->where('agid', '4')->get();
        //return $products;
-        return view('agent/product', ['products' => $products]);
+        return view('agent/product', ['products' => $products,'agent_product' => $agent_product]);
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Agent_product_controller;
 use App\Http\Controllers\Agent_product_prices_controller;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Customer_product_prices_controller;
@@ -53,6 +54,8 @@ Route::get('/agent/changePassword', function () {
 });
 
 Route::get('/agent/product', [ProductController::class, 'getSubProducts']);
+Route::post('/agent/addproduct', [Agent_product_controller::class, 'store']);
+Route::post('/agent/product/delete/{id}', [Agent_product_controller::class, 'destroy']);
 
 Route::post('/login', [RegisterController::class, 'login']);
 Route::post('/registration', [RegisterController::class, 'register']);

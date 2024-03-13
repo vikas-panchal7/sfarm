@@ -56,7 +56,7 @@
                     </a>
                     <ul class="nav nav-treeview" style="display: none;">
                         <li class="nav-item ">
-                            <a href="products" class="nav-link {{ Request::is('products') ? 'active' : '' }}">
+                            <a href="product" class="nav-link {{ Request::is('agent/product') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Product</p>
                             </a>
@@ -69,6 +69,12 @@
                         </li>
                         
                     </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="/profile/{{ session('user_id') }}" class="nav-link ">
+                        <i class="fas fa-envelope nav-icon"></i>
+                        <p>Profile</p>
+                    </a>
                 </li>
                 <li class="nav-item">
                     <a href="/agent/changePassword" class="nav-link {{ Request::is('agent/changePassword') ? 'active' : '' }}">
