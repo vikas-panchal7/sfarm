@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Agent_commisons_controller;
 use App\Http\Controllers\Agent_product_controller;
 use App\Http\Controllers\Agent_product_prices_controller;
+use App\Http\Controllers\AgentCommisonsController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Customer_product_prices_controller;
 use App\Http\Controllers\PincodeController;
@@ -56,6 +58,8 @@ Route::get('/agent/changePassword', function () {
 Route::get('/agent/product', [ProductController::class, 'getSubProducts']);
 Route::post('/agent/addproduct', [Agent_product_controller::class, 'store']);
 Route::post('/agent/product/delete/{id}', [Agent_product_controller::class, 'destroy']);
+Route::get('/agent/commission', [Agent_commisons_controller::class,'get']);
+Route::post('agent/commission/update', [Agent_commisons_controller::class,'storeOrUpdate']);
 
 Route::post('/login', [RegisterController::class, 'login']);
 Route::post('/registration', [RegisterController::class, 'register']);

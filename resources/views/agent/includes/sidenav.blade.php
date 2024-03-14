@@ -62,7 +62,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="subproducts" class="nav-link {{ Request::is('commission') ? 'active' : '' }}">
+                            <a href="commission" class="nav-link {{ Request::is('commission') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Commission</p>
                             </a>

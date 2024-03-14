@@ -25,12 +25,12 @@ class Agent_product_controller extends Controller
 
         if ($existingAgentProduct) {
             // If a record exists, update it
-            $existingAgentProduct->update([
-                'pid' => $request->input('pid'),
-                'spid' => $request->input('spid'),
-                'agid' => $request->input('agid'),
-                // Add other fields here if needed
-            ]);
+            // $existingAgentProduct->update([
+            //     'pid' => $request->input('pid'),
+            //     'spid' => $request->input('spid'),
+            //     'agid' => $request->input('agid'),
+            //     // Add other fields here if needed
+            // ]);
             $message = 'Agent Product Already Exists.';
             return redirect("agent/product")->with('er', $message);
             
