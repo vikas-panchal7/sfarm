@@ -149,7 +149,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="/contact" class="nav-link {{ Request::is('contact') ? 'active' : '' }}">
+                        <a href="/contacts" class="nav-link {{ Request::is('contact') ? 'active' : '' }}">
                             <i class="fas fa-envelope nav-icon"></i>
                             <p>Contact Messages</p>
                         </a>

@@ -70,8 +70,56 @@
                         
                     </ul>
                 </li>
+                <li class="nav-item menu-is-opening ">
+                    <a href="#" class="nav-link {{ Request::is('agent/purchase') ? 'active' :  Request::is('agent/purchasebill') ? 'active' : ''  }}">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>
+                            Purchase
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview" style="display: none;">
+                        <li class="nav-item ">
+                            <a href="purchase" class="nav-link {{ Request::is('agent/purchase') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Purchase Entry</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="purchasebill" class="nav-link {{ Request::is('agent/purchasebill') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Purchase Details</p>
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </li>
+                <li class="nav-item menu-is-opening ">
+                    <a href="#" class="nav-link  {{ Request::is('agent/sale') ? 'active' :  Request::is('agent/salebill') ? 'active' : ''  }}">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>
+                            Sale
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview" style="display: none;">
+                        <li class="nav-item ">
+                            <a href="sale" class="nav-link {{ Request::is('agent/sale') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Sale Entry</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="salebill" class="nav-link {{ Request::is('agent/salebill') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Sale Details</p>
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </li>
                 <li class="nav-item">
-                    <a href="/profile/{{ session('user_id') }}" class="nav-link ">
+                    <a href="profile" class="nav-link {{ Request::is('agent/profile') ? 'active' : '' }}">
                         <i class="fas fa-envelope nav-icon"></i>
                         <p>Profile</p>
                     </a>

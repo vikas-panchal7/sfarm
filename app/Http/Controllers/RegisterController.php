@@ -45,6 +45,27 @@ class RegisterController extends Controller
         return redirect('register');
     }
 
+    public function addFarmer(Request $request)
+    {
+        // Validation logic
+        $request->validate([
+            'txt_ut' => 'required',
+            'txt_fnm' => 'required',
+            'txt_lnm' => 'required',
+            // Add more validation rules for other fields
+        ]);
+
+        // Create a new user in the database
+        $user = new Register();
+        $user->user_type = $request->input('txt_ut');
+        $user->first_name = $request->input('txt_fnm');
+        $user->middle_name = $request->input('txt_mnm');
+        $user->last_name = $request->input('txt_lnm');
+        $user->save();
+        $request->session()->flash('success', ' Added SuccessFully!');
+        return redirect()->back();
+    }
+
     public function getFarmers()
     {
         $customers = Register::where('user_type', '1')->get();
@@ -166,5 +187,22 @@ class RegisterController extends Controller
         //return compact('user');
         // Pass the user data to the edit view
         return view('admin/profile', compact('user'));
+    }
+
+    public function view()
+    {
+        $id = session('user_id');
+        // Retrieve the user with the given ID
+        $user = Register::select('id','first_name', 'middle_name', 'last_name', 'address', 'contact', 'gender', 'email')
+        ->find($id);
+
+        // Check if the user exists
+        if (!$user) {
+            // Redirect back or show an error message if the user is not found
+            return redirect()->back()->with('er', 'User not found.');
+        }
+        //return compact('user');
+        // Pass the user data to the edit view
+        return view('agent/profile', compact('user'));
     }
 }

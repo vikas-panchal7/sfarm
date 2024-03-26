@@ -8,7 +8,11 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Customer_product_prices_controller;
 use App\Http\Controllers\PincodeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PurchaseBillController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SaleBillController;
+use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SubproductController;
 use Illuminate\Support\Facades\Route;
 
@@ -61,8 +65,18 @@ Route::post('/agent/product/delete/{id}', [Agent_product_controller::class, 'des
 Route::get('/agent/commission', [Agent_commisons_controller::class,'get']);
 Route::post('agent/commission/update', [Agent_commisons_controller::class,'storeOrUpdate']);
 
+Route::get('agent/profile',[RegisterController::class, 'view']);
+Route::get('agent/purchasebill', [PurchaseBillController::class,'index']);
+Route::get('agent/salebill', [SaleBillController::class,'index']);
+Route::get('agent/purchasedetails', [PurchaseBillController::class,'details']);
+Route::get('agent/saledetails', [SaleBillController::class,'details']);
+Route::get('agent/purchase', [PurchaseController::class,'index']);
+Route::get('agent/sale', [SalesController::class,'index']);
+Route::post('agent/purchase', [PurchaseController::class,'store']);
+Route::post('agent/sale', [SalesController::class,'store']);
 Route::post('/login', [RegisterController::class, 'login']);
 Route::post('/registration', [RegisterController::class, 'register']);
+Route::post('/addfarmer', [RegisterController::class, 'addFarmer']);
 Route::get('/register', function () {
     return view('admin/register');
 });
@@ -98,7 +112,7 @@ Route::post('/appriceupdate', [Agent_product_prices_controller::class, 'updateOr
 Route::get('/cpprice', [Customer_product_prices_controller::class, 'getAllProductsWithPrices']);
 Route::post('/cppriceupdate', [Customer_product_prices_controller::class, 'updateOrInsertPrice']);
 
-Route::get('/contact',[ContactController::class,'index']);
+Route::get('/contacts',[ContactController::class,'index']);
 
 Route::get('/profile/{id}',[RegisterController::class, 'edit']);
 Route::post('/profile/update',[RegisterController::class, 'update']);
