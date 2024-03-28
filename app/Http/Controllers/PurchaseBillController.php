@@ -43,6 +43,18 @@ class PurchaseBillController extends Controller
         return view('agent/purchasedetails', ['agentBills' => $agentProducts]);
         //return $agentProducts;
     }
+
+    public function farmer(Request $request)
+    {
+        $farmer_id = session('farmer_id');
+
+        // Fetch agent products associated with the retrieved agent id
+        $agentProducts =  PurchaseBill::with('agent')
+            ->where('farmer_id', $farmer_id)
+            ->get();
+        return view('user/bills', ['agentBills' => $agentProducts]);
+        //return $agentProducts;
+    }
     public function details(Request $request)
     {
         $id = $request->input('id');
@@ -51,6 +63,18 @@ class PurchaseBillController extends Controller
             ->get();
         $agentBillProducts = Purchase::with('subProduct')->where('purchase_bill_id', $id)->get();
        return view('agent.purchaseview', compact('agentBill', 'agentBillProducts'));
+
+        return ['agentBill' => $agentBill, 'agentBillProducts' => $agentBillProducts];
+    }
+
+    public function farmerdetails(Request $request)
+    {
+        $id = $request->input('id');
+        $agentBill =  PurchaseBill::with('agent')
+            ->where('id', $id)
+            ->get();
+        $agentBillProducts = Purchase::with('subProduct')->where('purchase_bill_id', $id)->get();
+       return view('user/billsview', compact('agentBill', 'agentBillProducts'));
 
         return ['agentBill' => $agentBill, 'agentBillProducts' => $agentBillProducts];
     }

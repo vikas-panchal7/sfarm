@@ -36,7 +36,33 @@ class Customer_product_prices_controller extends Controller
             return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
         }
     }
+    public function getAllProducts()
+    {
+        try {
+            // Fetch all products with their sub-products using Eloquent's with method
+            $products = Products::with(['subProducts'])->get();
 
+            // Iterate through each product and sub-product to add the price information
+            foreach ($products as $product) {
+                foreach ($product->subProducts as $subProduct) {
+                    // Find the corresponding price in the agent_product_prices table
+                    $price = customer_product_prices::where('products_id', $product->id)
+                        ->where('sub_product_id', $subProduct->id)
+                        ->value('price');
+
+                    // If the price is not found, set it to 0
+                    $subProduct->price = $price ?? 0;
+                }
+            }
+            //return ['pro' => $products];
+            return view('user/shop', ['products' => $products]);
+            // Return the data as a JSON response or in any other desired format
+            return response()->json(['success' => true, 'data' => $products], 200);
+        } catch (\Exception $e) {
+            // Handle any exceptions that may occur
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+        }
+    }
     public function updateOrInsertPrice(Request $request)
     {
         try {

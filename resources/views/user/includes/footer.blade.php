@@ -94,5 +94,38 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script src="js/google-map.js"></script>
 <script src="js/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+<script>
+    $(document).ready(function() {
+        toastr.options.timeOut = 5000;
+        @if (Session::has('er'))
+            toastr.error('{{ Session::get('er') }}');
+        @elseif(Session::has('success'))
+            toastr.success('{{ Session::get('success') }}');
+        @endif
+    });
+
+</script>
+<script>
+  $(document).ready(function() {
+      // Function to update total number of products in the cart
+      function updateTotalProductsInCart() {
+          $.ajax({
+              type: 'GET',
+              url: '/gettotalproducts', // Assuming you have a route to fetch total products count
+              success: function(data) {
+                  $('#total-products-in-cart').text('[' + data.totalProductsInCart + ']');
+              },
+              error: function(xhr, status, error) {
+                  console.error(xhr.responseText); // Log any errors
+              }
+          });
+      }
+  
+      // Call the function initially to update the total number of products
+      updateTotalProductsInCart();
+  });
+  </script>
+  
 </body>
 </html>

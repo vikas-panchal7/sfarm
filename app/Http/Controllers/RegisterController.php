@@ -45,6 +45,15 @@ class RegisterController extends Controller
         return redirect('register');
     }
 
+    public function logout(Request $request)
+    {
+       
+        $request->session()->invalidate(); // Invalidate the session
+        $request->session()->regenerateToken(); // Regenerate CSRF token
+
+        return redirect('/'); // Redirect to home or any other page
+    }
+
     public function addFarmer(Request $request)
     {
         // Validation logic
@@ -109,6 +118,13 @@ class RegisterController extends Controller
             $request->session()->put('user_id', $user->id);
             if ($user->user_type == 3) {
                 return redirect("/agent/dashboard");
+            }
+            if ($user->user_type == 2) {
+                return redirect("/home");
+            }
+            if ($user->user_type == 1) {
+                $request->session()->put('farmer_id', $user->id);
+                return redirect("/home");
             }
             return redirect("/dashboard"); // Redirect to the intended page or dashboard
         } else {
@@ -205,4 +221,23 @@ class RegisterController extends Controller
         // Pass the user data to the edit view
         return view('agent/profile', compact('user'));
     }
+
+    public function userview()
+    {
+        $id = session('user_id');
+        // Retrieve the user with the given ID
+        $user = Register::select('id','first_name', 'middle_name', 'last_name', 'address', 'contact', 'gender', 'email')
+        ->find($id);
+
+        // Check if the user exists
+        if (!$user) {
+            // Redirect back or show an error message if the user is not found
+            return redirect()->back()->with('er', 'User not found.');
+        }
+        //return compact('user');
+        // Pass the user data to the edit view
+        return view('user/profile', compact('user'));
+    }
+
+    
 }

@@ -4,6 +4,7 @@ use App\Http\Controllers\Agent_commisons_controller;
 use App\Http\Controllers\Agent_product_controller;
 use App\Http\Controllers\Agent_product_prices_controller;
 use App\Http\Controllers\AgentCommisonsController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Customer_product_prices_controller;
 use App\Http\Controllers\PincodeController;
@@ -38,8 +39,13 @@ Route::get('/login', function () {
 Route::get('/home', function () {
     return view('user/home');
 });
+Route::get('/shop', [Customer_product_prices_controller::class, 'getAllProducts']);
+
 Route::get('/about', function () {
     return view('user/about');
+});
+Route::get('/password', function () {
+    return view('user/changepassword');
 });
 Route::get('/contact', function () {
     return view('user/contact');
@@ -47,10 +53,31 @@ Route::get('/contact', function () {
 Route::get('/dashboard', function () {
     return view('admin/index');
 });
-
+Route::get('/showprofile',[RegisterController::class, 'userview']);
+Route::get('/bills',[PurchaseBillController::class, 'farmer']);
+Route::get('/billdetails', [PurchaseBillController::class,'farmerdetails']);
 Route::get('/changePassword', function () {
     return view('admin/changepassword');
 });
+
+
+Route::post("/addcart",[CartController::class,'store']);
+Route::get("/gettotalproducts",[CartController::class,'count']);
+Route::get('/cart', [CartController::class,'index']);
+Route::post('/cart/{id}', [CartController::class, 'destroy']);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Route::get('/agent/dashboard', function () {
     return view('agent/index');
@@ -66,6 +93,9 @@ Route::get('/agent/commission', [Agent_commisons_controller::class,'get']);
 Route::post('agent/commission/update', [Agent_commisons_controller::class,'storeOrUpdate']);
 
 Route::get('agent/profile',[RegisterController::class, 'view']);
+
+Route::get('/logout',[RegisterController::class, 'logout']);
+
 Route::get('agent/purchasebill', [PurchaseBillController::class,'index']);
 Route::get('agent/salebill', [SaleBillController::class,'index']);
 Route::get('agent/purchasedetails', [PurchaseBillController::class,'details']);
