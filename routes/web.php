@@ -7,6 +7,7 @@ use App\Http\Controllers\AgentCommisonsController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Customer_product_prices_controller;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PincodeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseBillController;
@@ -62,21 +63,16 @@ Route::get('/changePassword', function () {
 
 
 Route::post("/addcart",[CartController::class,'store']);
+Route::post("/update_cart_quantity",[CartController::class,'updateCartQuantity']);
 Route::get("/gettotalproducts",[CartController::class,'count']);
 Route::get('/cart', [CartController::class,'index']);
 Route::post('/cart/{id}', [CartController::class, 'destroy']);
 
+Route::get('/checkout',[CartController::class, 'getTotalCartValue']);
+Route::post('/placeorder',[OrderController::class, 'placeOrder']);
 
-
-
-
-
-
-
-
-
-
-
+Route::get('/orders',[OrderController::class, 'details']);
+Route::get('/orderdetails',[OrderController::class, 'orderdetails']);
 
 
 Route::get('/agent/dashboard', function () {

@@ -35,22 +35,29 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($carts as $cart)
+                                @foreach ($carts as $cart)
                                     <tr class="text-center">
                                         <td class="product-remove">
                                             <a>
-                                                <span class="remove-item" data-id="{{ $cart->id }}"><span class="ion-ios-close"></span></span>
+                                                <span class="remove-item" data-id="{{ $cart->id }}"><span
+                                                        class="ion-ios-close"></span></span>
                                             </a>
                                         </td>
-                                        <td class="image-prod"><div class="img" style="background-image:url(images/{{ $cart->subProduct->image }});"></div></td>
+                                        <td class="image-prod">
+                                            <div class="img"
+                                                style="background-image:url(images/{{ $cart->subProduct->image }});">
+                                            </div>
+                                        </td>
                                         <td class="product-name">
                                             <h3>{{ $cart->subProduct->subproduct_name }}</h3>
                                             <p>{{ $cart->subProduct->subproduct_description }}</p>
                                         </td>
-                                        <td class="price">${{ $cart->price }}</td>
+                                        <td class="price">{{ $cart->price }}®</td>
                                         <td class="quantity">
                                             <div class="input-group mb-3">
-                                                <input type="text" id="quantity-{{ $cart->id }}" name="quantity" class="quantity form-control input-number" value="{{ $cart->qty }}" min="1" max="100">
+                                                <input type="text" id="quantity-{{ $cart->id }}" name="quantity"
+                                                    class="quantity form-control input-number"
+                                                    value="{{ $cart->qty }}" min="1" max="100">
                                             </div>
                                         </td>
                                         <td class="total">${{ $cart->total_price }}</td>
@@ -74,10 +81,10 @@
                         <p class="d-flex total-price">
                             <span>Total</span>
                             <span id="total"></span>
-                        </p>                    
+                        </p>
                     </div>
                     <p style="display: flex; justify-content: center;">
-                        <a href="checkout.html" class="btn btn-primary py-3 px-4">Proceed to Checkout</a>
+                        <a href="/checkout" class="btn btn-primary py-3 px-4">Proceed to Checkout</a>
                     </p>
                 </div>
             </div>
@@ -89,71 +96,91 @@
 
 
 <script>
-$(document).ready(function() {
-    // Function to update cart totals
-    function updateCartTotals() {
-        // Calculate subtotal
-        var subtotal = 0;
-        $('.total').each(function() {
-            subtotal += parseFloat($(this).text().replace('$', ''));
+    $(document).ready(function() {
+        // Function to update cart totals
+        function updateCartTotals() {
+            // Calculate subtotal
+            var subtotal = 0;
+            $('.total').each(function() {
+                subtotal += parseFloat($(this).text().replace('$', ''));
+            });
+
+            // Update subtotal
+            $('#subtotal').text('$' + subtotal.toFixed(2));
+
+            // Calculate total (assuming no delivery charge and a $3 discount)
+            //var discount = 3;
+            var total = subtotal;
+
+            // Update total
+            $('#total').text('$' + total.toFixed(2));
+        }
+
+        // Listen for changes in quantity input fields
+        $('.quantity input').on('change', function() {
+            var quantity = parseInt($(this).val());
+            var cartId = $(this).attr('id').split('-')[1];
+            var price = parseFloat($(this).closest('tr').find('.price').text().replace('$', ''));
+            var total = quantity * price;
+
+            // Update total for this item
+            $(this).closest('tr').find('.total').text('$' + total.toFixed(2));
+
+            // Update cart totals
+            updateCartTotals();
+
+            // AJAX request to update quantity
+            $.ajax({
+                url: '/update_cart_quantity', // URL to your update cart quantity endpoint
+                type: 'post',
+                data: {
+                    '_token': '{{ csrf_token() }}',
+                    'cart_id': cartId,
+                    'quantity': quantity
+                },
+                success: function(response) {
+                    // Handle success response if needed
+                    console.log(response);
+                },
+                error: function(xhr, status, error) {
+                    // Handle error response if needed
+                    console.error(error);
+                }
+            });
         });
 
-        // Update subtotal
-        $('#subtotal').text('$' + subtotal.toFixed(2));
-
-        // Calculate total (assuming no delivery charge and a $3 discount)
-        //var discount = 3;
-        var total = subtotal;
-
-        // Update total
-        $('#total').text('$' + total.toFixed(2));
-    }
-
-    // Listen for changes in quantity input fields
-    $('.quantity input').on('change', function() {
-        var quantity = parseInt($(this).val());
-        var cartId = $(this).attr('id').split('-')[1];
-        var price = parseFloat($(this).closest('tr').find('.price').text().replace('$', ''));
-        var total = quantity * price;
-
-        // Update total for this item
-        $(this).closest('tr').find('.total').text('$' + total.toFixed(2));
-
-        // Update cart totals
         updateCartTotals();
     });
-
-    updateCartTotals();
-});
 </script>
 
-<script>
-$(document).ready(function() {
-    // Event listener for the close icon
-    $('.remove-item').on('click', function() {
-        // Get the ID of the cart item to be removed
-        var cartId = $(this).data('id');
 
-        // Send an AJAX request to delete the item
-        $.ajax({
-            url: '/cart/' + cartId,
-            type: 'post',
-            data: {
+<script>
+    $(document).ready(function() {
+        // Event listener for the close icon
+        $('.remove-item').on('click', function() {
+            // Get the ID of the cart item to be removed
+            var cartId = $(this).data('id');
+
+            // Send an AJAX request to delete the item
+            $.ajax({
+                url: '/cart/' + cartId,
+                type: 'post',
+                data: {
                     '_token': '{{ csrf_token() }}'
                 },
-            success: function(response) {
-                toastr.success(response.success);
-                // Reload the page or update the cart dynamically as needed
-                setTimeout(() => {
-                    location.reload();
-                }, 500);
-                 // For simplicity, reload the page
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
-                alert('Failed to remove item from cart.');
-            }
+                success: function(response) {
+                    toastr.success(response.success);
+                    // Reload the page or update the cart dynamically as needed
+                    setTimeout(() => {
+                        location.reload();
+                    }, 500);
+                    // For simplicity, reload the page
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                    alert('Failed to remove item from cart.');
+                }
+            });
         });
     });
-});
 </script>

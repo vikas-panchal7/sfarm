@@ -28,8 +28,46 @@ class CartController extends Controller
         // You can create a form view to add items to the cart here
     }
 
+    public function updateCartQuantity(Request $request)
+    {
+        // Retrieve the cart ID and quantity from the request
+        $cartId = $request->input('cart_id');
+        $quantity = $request->input('quantity');
 
+        try {
+            // Find the cart item
+            $cart = Cart::findOrFail($cartId);
+             $price = $cart->price;
+            // Update the quantity
+            $cart->qty = $quantity;
+            $cart->total_price = $quantity * $price;
+            $cart->save();
 
+            // You can return a success response if needed
+            return response()->json(['success' => 'Cart quantity updated successfully']);
+
+        } catch (\Exception $e) {
+            // Return error response if something goes wrong
+            return response()->json(['error' => 'Failed to update cart quantity'], 500);
+        }
+    }
+    public function getTotalCartValue()
+    {
+        // Get the current authenticated user
+        $userid = session('user_id');
+
+        // Retrieve cart items for the user
+        $cartItems = Cart::where('uid', $userid)->get();
+
+        // Calculate total cart value
+        $totalCartValue = 0;
+        foreach ($cartItems as $item) {
+            $totalCartValue += $item->total_price;
+        }
+        return view('user/checkout', compact('totalCartValue'));
+        // You can return the total cart value or perform any additional processing
+        return compact('totalCartValue');
+    }
 
     public function store(Request $request)
     {
