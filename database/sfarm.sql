@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 28, 2024 at 10:38 PM
+-- Generation Time: Apr 02, 2024 at 11:39 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -110,6 +110,13 @@ CREATE TABLE `carts` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `carts`
+--
+
+INSERT INTO `carts` (`id`, `uid`, `spid`, `price`, `qty`, `total_price`, `created_at`, `updated_at`) VALUES
+(14, 5, 6, '25.00', 1, '25.00', '2024-04-02 15:19:21', '2024-04-02 15:19:21');
+
 -- --------------------------------------------------------
 
 --
@@ -214,7 +221,62 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (18, '2024_03_15_180515_create_purchases_table', 13),
 (19, '2024_03_26_182629_create_sales_bills_table', 14),
 (20, '2024_03_26_183000_create_sales_table', 14),
-(21, '2024_03_28_191341_create_carts_table', 15);
+(21, '2024_03_28_191341_create_carts_table', 15),
+(25, '2024_04_02_191426_create_orders_table', 16),
+(26, '2024_04_02_192420_create_order_products_table', 16);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `first_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `last_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `street_address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `town_city` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `postcode_zip` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email_address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `total_amount` bigint(20) UNSIGNED NOT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `user_id`, `first_name`, `last_name`, `street_address`, `town_city`, `postcode_zip`, `phone`, `email_address`, `total_amount`, `status`, `created_at`, `updated_at`) VALUES
+(1, 5, 'Aditi', 'Sharma', 'Valod', 'Valod', '394640', '9797979797', 'v@gmail.com', 150, 'pending', '2024-04-02 15:17:25', '2024-04-02 15:17:25');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_products`
+--
+
+CREATE TABLE `order_products` (
+  `oid` bigint(20) UNSIGNED NOT NULL,
+  `spid` bigint(20) UNSIGNED NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `qty` int(11) NOT NULL,
+  `total_price` decimal(10,2) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `order_products`
+--
+
+INSERT INTO `order_products` (`oid`, `spid`, `price`, `qty`, `total_price`, `created_at`, `updated_at`) VALUES
+(1, 11, '10.00', 10, '100.00', '2024-04-02 15:17:25', '2024-04-02 15:17:25'),
+(1, 10, '50.00', 1, '50.00', '2024-04-02 15:17:25', '2024-04-02 15:17:25');
 
 -- --------------------------------------------------------
 
@@ -548,6 +610,20 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `orders_user_id_foreign` (`user_id`);
+
+--
+-- Indexes for table `order_products`
+--
+ALTER TABLE `order_products`
+  ADD KEY `order_products_oid_foreign` (`oid`),
+  ADD KEY `order_products_spid_foreign` (`spid`);
+
+--
 -- Indexes for table `password_resets`
 --
 ALTER TABLE `password_resets`
@@ -652,7 +728,7 @@ ALTER TABLE `agent_product_prices`
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `contacts`
@@ -676,7 +752,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -770,6 +852,19 @@ ALTER TABLE `carts`
 ALTER TABLE `customer_product_prices`
   ADD CONSTRAINT `customer_product_prices_products_id_foreign` FOREIGN KEY (`products_id`) REFERENCES `products` (`id`),
   ADD CONSTRAINT `customer_product_prices_sub_product_id_foreign` FOREIGN KEY (`sub_product_id`) REFERENCES `sub_products` (`id`);
+
+--
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `registers` (`id`);
+
+--
+-- Constraints for table `order_products`
+--
+ALTER TABLE `order_products`
+  ADD CONSTRAINT `order_products_oid_foreign` FOREIGN KEY (`oid`) REFERENCES `orders` (`id`),
+  ADD CONSTRAINT `order_products_spid_foreign` FOREIGN KEY (`spid`) REFERENCES `sub_products` (`id`);
 
 --
 -- Constraints for table `purchases`
